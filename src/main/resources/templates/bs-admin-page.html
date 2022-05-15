@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>ADMIN PAGE</title>
+
+</head>
+<body>
+
+<header class="navbar sticky-top navbar-dark bg-dark p-0 shadow" >
+    <a class=" text-white navbar-brand col-md-3" href="#" id="nav"></a>
+    <div class="navbar-nav">
+        <div class="nav-item">
+            <form action="/logout" method="POST">
+                <button class="btn nav-link bg-dark" type="submit"> Logout</button>
+            </form>
+        </div>
+    </div>
+</header>
+<br/>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active bg-primary text-white " href="#">
+                        Admin
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user">
+                        User
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+
+        <div class="col-md-9">
+            <h2>Admin Panel</h2>
+
+            <div class="container-fluid">
+                <div class="col-md-12">
+                    <div class="tabbable" id="tabs-629201">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#users-table">User table</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tab2">New User</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content " id="allUsersTab">
+                            <div class="tab-pane active" id="users-table">
+                                <h4>All users</h4>
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Surname</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Roles</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tb">
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <button type="button" class="btn btn-info" data-toggle="modal"
+                                                    id="btn-edit">
+                                                Edit
+                                            </button>
+                                        </td>
+                                        <div class="modal fade" tabindex="-1" id="editModal">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Edit user</h5>
+                                                        <button class="close" data-dismiss="modal">x</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form class="editFormModal">
+                                                            <div class="text-center col-md-6 m-auto">
+                                                                <label for="id"><b>ID</b></label>
+                                                                <input type="text" id="id" class="form-control"
+                                                                       readonly/>
+
+                                                                <label for="username"><b>Username</b></label>
+                                                                <input type="text"
+                                                                       class="form-control" id="username"/>
+
+                                                                <label for="surname"><b>Surname</b></label>
+                                                                <input type="text" class="form-control" id="surname"/>
+
+                                                                <label for="age"><b>Age</b></label>
+                                                                <input type="text" class="form-control" id="age"/>
+
+                                                                <label for="email"><b>Email</b></label>
+                                                                <input type="text" class="form-control" id="email"/>
+
+                                                                <label for="password"><b>Password</b></label>
+                                                                <input type="text" id="password" class="form-control" required/>
+
+
+                                                                <label for="editRoles">Roles</label>
+                                                                <select class="form-control" multiple size="2"
+                                                                        id="editRoles" required>
+                                                                </select>
+
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Close
+                                                                </button>
+                                                                <button type="submit" class="btn btn-primary">Edit
+                                                                </button>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <td>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal">
+                                                Delete
+                                            </button>
+                                        </td>
+                                            <div class="modal fade" tabindex="-1" id="deleteModal" >
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <div class="modal-title"><b>Delete User</b></div>
+                                                            <button type="button" class="close"
+                                                                    data-dismiss="modal">x
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <form class="deleteFormModal">
+                                                            <div class="col-md-6 text-center m-auto">
+                                                                <label for="idDel"><b>ID</b></label>
+                                                                <input type="text"
+                                                                       class="form-control" id="idDel"
+                                                                       readonly/>
+
+                                                                <label for="usernameDel"><b>Username</b></label>
+                                                                <input type="text"
+                                                                       class="form-control" id="usernameDel"
+                                                                       readonly/>
+
+                                                                <label for="surnameDel"><b>Surname</b></label>
+                                                                <input type="text"
+                                                                       class="form-control" id="surnameDel"
+                                                                       readonly/>
+
+                                                                <label for="ageDel"><b>Age</b></label>
+                                                                <input type="number"
+                                                                       class="form-control" id="ageDel"
+                                                                       readonly/>
+
+                                                                <label for="emailDel"><b>Email</b></label>
+                                                                <input type="text"
+                                                                       class="form-control" id="emailDel"
+                                                                       readonly/>
+
+                                                                <label for="passwordDel"><b>Password</b></label>
+                                                                <input type="text"  class="form-control" id="passwordDel"
+                                                                       readonly/>
+
+                                                                <label for="deleteRoles">Roles</label>
+                                                                <select class="form-control" multiple size="2"
+                                                                        id="deleteRoles">
+                                                                </select>
+
+                                                            </div>
+
+                                                        <div  class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Close
+                                                            </button>
+                                                            <button type="submit" class="btn btn-danger"
+                                                                    id="btn-delete">
+                                                                Delete
+                                                            </button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                            </div>
+                                    </div>
+                                            </div>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="tab2">
+                                <thead class="thead-dark"></thead>
+                                <tr>
+                                    <th scope="col"><h5>Add new User</h5></th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr>
+                                    <form class="addForm">
+                                        <div class=" col-md-4  text-center m-auto">
+                                            <label for="userAdd"><b>Username</b></label>
+                                            <input type="text" class="form-control" id="userAdd"
+                                                   placeholder="Username"/>
+
+                                            <label for="surnameAdd"><b>Surname</b></label>
+                                            <input type="text" class="form-control" id="surnameAdd"
+                                                   placeholder="Surname"/>
+
+                                            <label for="ageAdd"><b>Age</b></label>
+                                            <input type="text" class="form-control" id="ageAdd" placeholder="Age"/>
+
+                                            <label for="emailAdd"><b>Email</b></label>
+                                            <input type="text" class="form-control" id="emailAdd" placeholder="Email"/>
+
+                                            <label for="passwordAdd"><b>Password</b></label>
+                                            <input type="text" class="form-control" id="passwordAdd" placeholder="Password" required/>
+
+                                            <label for="addRole">Roles</label>
+                                            <select class="form-control " multiple size="2"
+                                                    id="addRole" required>
+                                            </select>
+                                            <button type="submit" class=" addBtn btn btn-success  mt-3 ">Add new User</button>
+                                        </div>
+                                    </form>
+                                </tr>
+                                </tbody>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
+         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script>
+    const urlBar = 'http://localhost:8080/api/users/header'
+
+    const header = document.getElementById('nav')
+
+    const url = 'http://localhost:8080/api/users'
+
+    const tb = document.getElementById('tb')
+
+
+    const trs = document.getElementsByTagName("tr")
+
+
+    function fillTr (user) {
+        return  ` <tr id="${user.id}"><td>${user.id}</td>
+                                    <td>${user.username}</td>
+                                    <td>${user.surname}</td>
+                                    <td>${user.age}</td>
+                                    <td>${user.email}</td>
+                                    <td>${user.rolesToString}</td>
+                                    <td><button class="btnEdit btn btn-info">Edit</button></td>
+                                    <td><button class="btnDelete btn btn-danger">Delete</button></td>
+                                </tr>`
+    }
+
+
+
+    function getAuthentication() {
+        fetch(urlBar)
+            .then(res => res.json())
+            .then(user => {
+                let headBar = user.username + ' with roles: '
+                user.roles.forEach(role => {
+                    headBar+=role.name.replace('ROLE_', ' ')
+                })
+                header.innerHTML = headBar
+            })
+    }
+    getAuthentication()
+
+
+
+    function fillUsersTable() {
+        let outPutTable = ''
+        fetch(url)
+            .then(res => res.json())
+            .then(users => {
+                users.forEach(user => {
+                    outPutTable += fillTr(user)
+                })
+                tb.innerHTML = outPutTable;
+            })
+    }
+
+    function getAllRoles(target) {
+        fetch('http://localhost:8080/api/users/roles')
+            .then(res => res.json())
+            .then(roles => {
+                let roleList = ''
+                roles.forEach(role => {
+                    roleList += `<option value='${role.id}'>${role.name.replace('ROLE_', ' ')}</option>`
+                })
+                target.innerHTML = roleList
+            })
+    }
+
+
+    fetch(url)
+        .then(data => fillUsersTable(data))
+        .catch(error => console.log(error))
+
+    let roleList = (options) => {
+        let array = []
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].selected) {
+                let role = {
+                    id: options[i].value
+                }
+                array.push(role)
+            }
+        }
+        return array;
+    }
+
+
+    ////////////////////////////Изменение юзера(ЗАПОЛНЕНИЕ ИНПУТОВ ПРИ ОТКРЫТИИ МОДАЛЬНОГО ОКНА)///////////////////////
+
+
+    const on = (element, event1, selector, handler) => {
+        console.log(element)
+        element.addEventListener(event1, e => {
+            if (e.target.closest(selector)) {
+                handler(e)
+            }
+        });
+    };
+
+    const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+
+    let id = 0;
+    let username = ''
+    let surname = ''
+    let age = ''
+    let email = ''
+
+
+    const idForm = document.getElementById('id')
+
+    const usernameForm = document.getElementById('username')
+
+    const surnameForm = document.getElementById('surname')
+
+    const ageForm = document.getElementById('age')
+
+    const emailForm = document.getElementById('email')
+
+    const passwordForm = document.getElementById('password')
+
+    const editSelect = document.getElementById('editRoles');
+
+
+
+    on(document, 'click', '.btnEdit', e => {
+        const parent = e.target.parentNode.parentNode;
+        id = parent.children[0].innerHTML
+        console.log(id)
+        username = parent.children[1].innerHTML
+        console.log(username)
+        surname = parent.children[2].innerHTML
+        age = parent.children[3].innerHTML
+        email = parent.children[4].innerHTML
+
+        idForm.value = id;
+        usernameForm.value = username;
+        surnameForm.value = surname;
+        ageForm.value = age;
+        emailForm.value = email;
+        editSelect.value = getAllRoles(editSelect)
+        editModal.show()
+    })
+
+
+    /////////////////// submit edit form ////////////////
+
+
+
+    const editFormModal = document.querySelector('.editFormModal')
+    editFormModal.addEventListener('submit', (e) => {
+        e.preventDefault()
+        let setRoles = roleList(editSelect)
+        const editFetch = `http://localhost:8080/api/users/${id}`
+
+        fetch(editFetch, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: idForm.value,
+                username: usernameForm.value,
+                surname: surnameForm.value,
+                age: ageForm.value,
+                email: emailForm.value,
+                password: passwordForm.value,
+                roles: setRoles
+            })
+        })
+            .then(res => res.json())
+            .then(user => {
+                document.getElementById(`${user.id}`).innerHTML = fillTr(user)
+            })
+
+        editModal.hide()
+        passwordForm.value = ' '
+    })
+
+
+
+    ////////////////////////////Изменение юзера(ЗАПОЛНЕНИЕ ИНПУТОВ ПРИ ОТКРЫТИИ МОДАЛЬНОГО ОКНА)///////////////////////
+
+
+
+
+    ////////////////Модальное окно удаления////////////////////////////
+
+    const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    const idDeleteForm = document.getElementById('idDel')
+    const usernameDeleteForm = document.getElementById('usernameDel')
+    const surnameDeleteForm = document.getElementById('surnameDel')
+    const ageDeleteForm = document.getElementById('ageDel')
+    const emailDeleteForm = document.getElementById('emailDel')
+    const deleteForm = document.querySelector('.deleteFormModal')
+    const  deleteSelect = document.getElementById('deleteRoles')
+
+
+    on(document, 'click', '.btnDelete', e => {
+
+        const parent = e.target.parentNode.parentNode
+        id = parent.children[0].innerHTML;
+        username = parent.children[1].innerHTML;
+        surname = parent.children[2].innerHTML;
+        age = parent.children[3].innerHTML;
+        email = parent.children[4].innerHTML;
+
+
+        idDeleteForm.value = id;
+        usernameDeleteForm.value = username;
+        surnameDeleteForm.value = surname;
+        ageDeleteForm.value = age;
+        emailDeleteForm.value = email;
+        deleteSelect.value = getAllRoles(deleteSelect)
+        deleteModal.show()
+    })
+
+    /////////////////////////////////////сабмит формы удаления//////////////////
+    deleteForm.addEventListener('submit', e => {
+        e.preventDefault()
+        const urlDelete = `http://localhost:8080/api/users/${id}`
+        fetch(urlDelete, {
+            method: 'DELETE'
+
+        })
+            .then(() => document.getElementById(`${idDeleteForm.value}`).remove())
+
+        deleteModal.hide()
+    })
+
+
+    /////////////////add new user submit form////////////////////////
+    let addSelect = document.getElementById('addRole')
+
+    getAllRoles(addSelect)
+
+    const usernameAddForm = document.getElementById('userAdd')
+    const surnameAddForm = document.getElementById('surnameAdd')
+    const ageAddForm = document.getElementById('ageAdd')
+    const emailAddForm = document.getElementById('emailAdd')
+    const passwordAddForm = document.getElementById('passwordAdd')
+    const addForm = document.querySelector('.addForm')
+
+
+
+
+    addForm.addEventListener('submit', e => {
+        e.preventDefault()
+        let setRoles = roleList(addSelect)
+        console.log(setRoles)
+        const addFetch = `http://localhost:8080/api/users`
+        fetch(addFetch, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: usernameAddForm.value,
+                surname: surnameAddForm.value,
+                age: ageAddForm.value,
+                email: emailAddForm.value,
+                roles: setRoles,
+                password: passwordAddForm.value
+
+            })
+
+        })
+            .then(user => user.json())
+            .then(user => fillUsersTable(user))
+        usernameAddForm.value = ''
+        surnameAddForm.value = ''
+        ageAddForm.value = ''
+        emailAddForm.value = ''
+        passwordAddForm.value = ''
+    })
+
+</script>
+
+</body>
+</html>
